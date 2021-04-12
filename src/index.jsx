@@ -3,5 +3,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'tailwindcss/tailwind.css';
 import App from './components/App';
+import { OverlayContentProvider } from './components/overlay-context';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+  <OverlayContentProvider>
+    <App />
+  </OverlayContentProvider>,
+  document.getElementById('root')
+);
