@@ -4,6 +4,9 @@ const { entry, template } = require('./paths');
 
 module.exports = {
   entry,
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
   module: {
     rules: [
       {
