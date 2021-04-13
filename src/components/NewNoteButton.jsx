@@ -1,19 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import Button from './Button';
 import AddIcon from './AddIcon';
+import NoteForm from './NoteForm';
+import { useOverlayContent } from './overlay-context';
 
-const NewNoteButton = ({ onClick }) => (
-  <button type="button" className="absolute right-8 bottom-8 bg-black w-16 h-16 rounded-full" onClick={onClick}>
-    <AddIcon className="h-10 w-10 text-white mx-auto" width={2} />
-  </button>
-);
+const NewNoteButton = () => {
+  const { dispatch } = useOverlayContent();
+  const onClick = () => dispatch({ type: 'push', payload: { component: NoteForm } });
 
-NewNoteButton.propTypes = {
-  onClick: PropTypes.func,
-};
-
-NewNoteButton.defaultProps = {
-  onClick: null,
+  return (
+    <Button className="bg-blue-400 right-8" onClick={onClick}>
+      <AddIcon className="h-10 w-10 text-white mx-auto" width={2} />
+    </Button>
+  );
 };
 
 export default NewNoteButton;

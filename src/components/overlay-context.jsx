@@ -1,14 +1,18 @@
-import React, { createContext, useReducer } from 'react';
-import PropTypes from 'prop-types';
+import { createContext } from 'react';
+import makeContext from './context';
 
-const INITIAL_STATE = null;
-
+const INITIAL_STATE = [];
 const OverlayContentContext = createContext();
 
 const overlayContentReducer = (state, action) => {
   switch (action.type) {
-    case 'set': {
-      return action.payload;
+    case 'push': {
+      return [...state, action.payload];
+    }
+    case 'pop': {
+      const newState = [...state];
+      newState.pop();
+      return newState;
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);
@@ -16,26 +20,6 @@ const overlayContentReducer = (state, action) => {
   }
 };
 
-const OverlayContentProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(overlayContentReducer, INITIAL_STATE);
-  const value = { state, dispatch };
-  return <OverlayContentContext.Provider value={value}>{children}</OverlayContentContext.Provider>;
-};
-
-OverlayContentProvider.propTypes = {
-  children: PropTypes.node,
-};
-
-OverlayContentProvider.defaultProps = {
-  children: null,
-};
-
-const useOverlayContent = () => {
-  const context = React.useContext(OverlayContentContext);
-  if (context === undefined) {
-    throw new Error('useOverlayContent must be used within a OverlayContentProvider');
-  }
-  return context;
-};
+const { Provider: OverlayContentProvider, useContext: useOverlayContent } = makeContext(OverlayContentContext, INITIAL_STATE, overlayContentReducer);
 
 export { OverlayContentProvider, useOverlayContent };
