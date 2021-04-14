@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import NoteForm from './form/NoteForm';
-import { useOverlayContent } from './overlay-context';
+import { useOverlayContent } from '../contexts/overlay-context';
 
 const Note = ({ note }) => {
   const { dispatch: dispatchOverlay } = useOverlayContent();

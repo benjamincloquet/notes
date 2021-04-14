@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Button from './Button';
 import AddIcon from './icons/AddIcon';
 import NoteForm from './form/NoteForm';
-import { useOverlayContent } from './overlay-context';
+import { useOverlayContent } from '../contexts/overlay-context';
 
 const NewNoteButton = ({ className }) => {
   const { dispatch } = useOverlayContent();

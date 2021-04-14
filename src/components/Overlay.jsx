@@ -2,7 +2,7 @@
 import React from 'react';
 import { useTransition, animated } from 'react-spring';
 import Dimmer from './Dimmer';
-import { useOverlayContent } from './overlay-context';
+import { useOverlayContent } from '../contexts/overlay-context';
 
 const Overlay = () => {
   const { state } = useOverlayContent();

@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import TextInput from './TextInput';
 import ListTextInput from './ListTextInput';
+import TagList from '../TagList';
 import Button from '../Button';
 import SaveIcon from '../icons/SaveIcon';
 import CancelIcon from '../icons/CancelIcon';
 import DeleteIcon from '../icons/DeleteIcon';
-import { useNotes } from '../note-context';
-import { useOverlayContent } from '../overlay-context';
+import { useNotes } from '../../contexts/note-context';
+import { useOverlayContent } from '../../contexts/overlay-context';
 
 const NoteForm = ({ note: openedNote }) => {
   const initialState = openedNote ?? { name: 'New Note', text: '', tags: [], id: uuidv4() };
@@ -41,6 +42,7 @@ const NoteForm = ({ note: openedNote }) => {
         setValue={(value) => setProperty('tags', value)}
         className="text-lg font-medium w-full"
       />
+      <TagList tags={note.tags} />
       <textarea
         name="content"
         id="content"

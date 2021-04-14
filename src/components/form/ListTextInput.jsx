@@ -17,23 +17,14 @@ const ListTextInput = ({ value, setValue, className }) => {
   };
 
   return (
-    <section className="flex flex-col space-y-2">
-      <input
-        type="text"
-        className={className}
-        value={itemInput}
-        placeholder="Add a tag..."
-        onChange={(event) => setItemInput(event.target.value)}
-        onKeyDown={onKeyDown}
-      />
-      <div className="flex flex-row flex-wrap">
-        {value.map((item) => (
-          <div key={item} className="rounded-full bg-yellow-200 py-1 px-2 mx-1 my-1 justify-self-start">
-            {item}
-          </div>
-        ))}
-      </div>
-    </section>
+    <input
+      type="text"
+      className={className}
+      value={itemInput}
+      placeholder="Add a tag..."
+      onChange={(event) => setItemInput(event.target.value)}
+      onKeyDown={onKeyDown}
+    />
   );
 };
 

@@ -19,7 +19,7 @@ export default (Context, initialState, reducer) => {
   const useContext = () => {
     const context = React.useContext(Context);
     if (context === undefined) {
-      throw new Error('useNote must be used within a NoteProvider');
+      throw new Error(`Context must be used within a ${Context.name} provider`);
     }
     return context;
   };

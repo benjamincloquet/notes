@@ -3,8 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'tailwindcss/tailwind.css';
 import App from './components/App';
-import { OverlayContentProvider } from './components/overlay-context';
-import { NoteProvider } from './components/note-context';
+import { OverlayContentProvider } from './contexts/overlay-context';
+import { NoteProvider } from './contexts/note-context';
 
 ReactDOM.render(
   <OverlayContentProvider>
