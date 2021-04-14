@@ -1,4 +1,5 @@
 import { createContext } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import makeContext from './context';
 
 const INITIAL_STATE = [];
@@ -6,10 +7,10 @@ const OverlayContentContext = createContext();
 
 const overlayContentReducer = (state, action) => {
   switch (action.type) {
-    case 'push': {
-      return [...state, action.payload];
+    case 'show': {
+      return [...state, { ...action.payload, key: uuidv4() }];
     }
-    case 'pop': {
+    case 'hide': {
       const newState = [...state];
       newState.pop();
       return newState;

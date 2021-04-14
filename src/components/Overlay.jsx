@@ -1,21 +1,28 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
+import { useTransition, animated } from 'react-spring';
 import Dimmer from './Dimmer';
 import { useOverlayContent } from './overlay-context';
 
 const Overlay = () => {
-  const { state: components } = useOverlayContent();
+  const { state } = useOverlayContent();
 
-  return components.length > 0 ? (
+  const transitions = useTransition(state, {
+    from: { position: 'absolute', bottom: '-100%' },
+    enter: { bottom: '0%' },
+    leave: { bottom: '-100%' },
+  });
+
+  return (
     <>
-      <Dimmer />
-      <section className="w-screen h-screen absolute top-0 p-4 z-10">
-        {components.map(({ component: Component, props }) => (
-          <Component key={Component} {...props} />
-        ))}
-      </section>
+      <Dimmer visible={state.length > 0} />
+      {transitions((props, { component: Component, key, props: componentProps }) => (
+        <animated.section key={key} style={props} className="w-screen h-screen fixed p-4 z-10 bottom-0">
+          <Component {...componentProps} />
+        </animated.section>
+      ))}
     </>
-  ) : null;
+  );
 };
 
 export default Overlay;

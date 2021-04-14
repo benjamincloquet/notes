@@ -1,16 +1,18 @@
 import { createContext } from 'react';
 import makeContext from './context';
 
-const INITIAL_STATE = [];
+const INITIAL_STATE = {};
 const NoteContext = createContext();
 
 const noteReducer = (state, action) => {
   switch (action.type) {
-    case 'add': {
-      return [...state, action.payload];
+    case 'write': {
+      return { ...state, [action.payload.id]: { ...action.payload } };
     }
-    case 'remove': {
-      return [...state].filter(({ id }) => id !== action.payload);
+    case 'delete': {
+      const newState = { ...state };
+      delete newState[action.payload.id];
+      return newState;
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`);

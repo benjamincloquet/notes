@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchIcon from './SearchIcon';
+import SearchIcon from './icons/SearchIcon';
 
 const SearchBar = () => (
   <div className="flex items-center self-stretch bg-gray-100 rounded px-2">

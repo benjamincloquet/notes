@@ -1,16 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import NoteForm from './form/NoteForm';
+import { useOverlayContent } from './overlay-context';
 
-const Note = ({ name, text }) => (
-  <article className="flex flex-col space-y-2 bg-gradient-to-br from-yellow-300 to-red-300 rounded p-2">
-    <h1 className="text-3xl font-black">{name}</h1>
-    <p>{text}</p>
-  </article>
-);
+const Note = ({ note }) => {
+  const { dispatch: dispatchOverlay } = useOverlayContent();
+
+  const onClick = () => {
+    dispatchOverlay({ type: 'show', payload: { component: NoteForm, props: { note } } });
+  };
+
+  return (
+    <button type="button" onClick={onClick} className="w-full h-40 max-h-full bg-gradient-to-br from-yellow-300 to-red-300 rounded p-2 flex flex-col space-y-2">
+      <h1 className="text-3xl font-black">{note.name}</h1>
+      <p className="overflow-hidden">{note.text}</p>
+    </button>
+  );
+};
 
 Note.propTypes = {
-  name: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
+  note: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    text: PropTypes.string,
+  }).isRequired,
 };
 
 export default Note;
