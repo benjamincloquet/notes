@@ -14,6 +14,7 @@ const TextInput = ({ value, defaultValue, setValue, className }) => {
   const onBlur = () => {
     if (value === '') {
       setValue(defaultValue);
+      setTouched(false);
     }
   };
 

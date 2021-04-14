@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Button = ({ onClick, className, type, children }) => (
-  <button type={type} className={`w-16 h-16 rounded-full ${className}`} onClick={onClick}>
+  <button type={type} className={`w-16 h-16 rounded-full shadow-lg ${className}`} onClick={onClick}>
     {children}
   </button>
 );

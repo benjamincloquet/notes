@@ -4,15 +4,21 @@ import { v4 as uuidv4 } from 'uuid';
 import TextInput from './TextInput';
 import ListTextInput from './ListTextInput';
 import TagList from '../TagList';
+import Divider from '../Divider';
+import RadioInput from './RadioInput';
 import Button from '../Button';
 import SaveIcon from '../icons/SaveIcon';
 import CancelIcon from '../icons/CancelIcon';
 import DeleteIcon from '../icons/DeleteIcon';
 import { useNotes } from '../../contexts/note-context';
 import { useOverlayContent } from '../../contexts/overlay-context';
+import styles from './styles';
+
+const DEFAULT_NOTE = { name: 'New Note', text: '', tags: [], style: styles[0] ?? '' };
 
 const NoteForm = ({ note: openedNote }) => {
-  const initialState = openedNote ?? { name: 'New Note', text: '', tags: [], id: uuidv4() };
+  const generateNote = () => ({ ...DEFAULT_NOTE, id: uuidv4() });
+  const initialState = openedNote ?? generateNote();
   const [note, setNote] = useState(initialState);
 
   const setProperty = (property, value) => {
@@ -34,22 +40,34 @@ const NoteForm = ({ note: openedNote }) => {
   };
 
   return (
-    <form className="flex flex-col space-y-2 bg-white h-full rounded p-4" onSubmit={onSubmit}>
-      <TextInput value={note.name} defaultValue={initialState.name} setValue={(value) => setProperty('name', value)} className="text-5xl font-black w-full" />
+    <form className={`flex flex-col space-y-2 h-full rounded p-4 transition-colors bg-white ${note.style}`} onSubmit={onSubmit}>
+      <TextInput
+        value={note.name}
+        defaultValue={initialState.name}
+        setValue={(value) => setProperty('name', value)}
+        className="text-5xl font-black w-full bg-transparent"
+      />
       <ListTextInput
         value={note.tags}
         defaultValue={initialState.tags}
         setValue={(value) => setProperty('tags', value)}
-        className="text-lg font-medium w-full"
+        className="text-lg font-medium w-full bg-transparent"
       />
       <TagList tags={note.tags} />
+      <Divider />
       <textarea
         name="content"
         id="content"
         value={note.text}
         placeholder="Tap to start typing !"
-        className="resize-none p-2 w-full flex-grow"
+        className="resize-none p-2 w-full flex-grow bg-transparent"
         onChange={(event) => setProperty('text', event.target.value)}
+      />
+      <RadioInput
+        value={note.style}
+        setValue={(value) => setProperty('style', value)}
+        possibleValues={styles}
+        className="flex flex-row justify-around w-full py-4"
       />
       <div className="flex flex-row justify-between">
         <Button className="bg-gray-400  00 left-8" onClick={() => dispatchOverlay({ type: 'hide', payload: { component: NoteForm } })}>
@@ -74,6 +92,7 @@ NoteForm.propTypes = {
     name: PropTypes.string,
     text: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string),
+    style: PropTypes.string,
   }),
 };
 

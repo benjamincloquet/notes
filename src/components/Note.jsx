@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import NoteForm from './form/NoteForm';
+import TagList from './TagList';
 import { useOverlayContent } from '../contexts/overlay-context';
 
 const Note = ({ note }) => {
@@ -11,8 +12,9 @@ const Note = ({ note }) => {
   };
 
   return (
-    <button type="button" onClick={onClick} className="w-full h-40 max-h-full bg-gradient-to-br from-yellow-300 to-red-300 rounded p-2 flex flex-col space-y-2">
+    <button type="button" onClick={onClick} className={`w-full h-40 max-h-full rounded p-2 flex flex-col space-y-2 border shadow-lg ${note.style}`}>
       <h1 className="text-3xl font-black">{note.name}</h1>
+      <TagList tags={note.tags} />
       <p className="overflow-hidden">{note.text}</p>
     </button>
   );
@@ -23,6 +25,8 @@ Note.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
     text: PropTypes.string,
+    style: PropTypes.string,
+    tags: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 };
 
