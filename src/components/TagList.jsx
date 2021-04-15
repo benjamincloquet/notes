@@ -9,8 +9,10 @@ const TagList = ({ tags, onClick, selectedTag }) => (
         <Component
           type="button"
           key={tag}
-          className={`rounded-full bg-yellow-200 text-black py-1 px-2 mx-1 my-1 justify-self-start ${selectedTag === tag ? 'border-2 border-black' : null}`}
-          onClick={() => onClick(tag)}
+          className={`rounded-full bg-yellow-200 text-black py-1 px-2 mx-1 my-1 justify-self-start font-mono shadow ${
+            selectedTag === tag ? 'border-2 border-black' : null
+          }`}
+          onClick={() => onClick && onClick(tag)}
         >
           {tag}
         </Component>

@@ -1,3 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
+const colors = require('tailwindcss/colors');
+
 module.exports = {
   purge: ['./src/**/*.html', './src/**/*.js'],
   darkMode: false, // or 'media' or 'class'
@@ -6,6 +9,7 @@ module.exports = {
       transitionProperty: {
         bottom: 'bottom',
       },
+      colors,
     },
   },
   variants: {

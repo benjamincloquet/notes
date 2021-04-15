@@ -5,7 +5,7 @@ import Overlay from './Overlay';
 const App = () => (
   <>
     <div className="h-screen w-screen">
-      <div className="container h-full p-4 flex flex-col space-y-4 relative">
+      <div className="container mx-auto h-full p-4 flex flex-col space-y-4 relative">
         <Notes />
       </div>
       <Overlay />

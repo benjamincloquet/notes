@@ -12,7 +12,11 @@ const Note = ({ note }) => {
   };
 
   return (
-    <button type="button" onClick={onClick} className={`w-full h-40 max-h-full rounded p-2 flex flex-col space-y-2 border shadow-lg ${note.style}`}>
+    <button
+      type="button"
+      onClick={onClick}
+      className={`w-full h-40 max-h-full rounded p-2 flex flex-col space-y-2 border shadow-lg bg-${note.style.bg} text-${note.style.text}`}
+    >
       <h1 className="text-3xl font-black">{note.name}</h1>
       <TagList tags={note.tags} />
       <p className="overflow-hidden">{note.text}</p>
@@ -25,7 +29,7 @@ Note.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
     text: PropTypes.string,
-    style: PropTypes.string,
+    style: PropTypes.shape({ bg: PropTypes.string, text: PropTypes.string }),
     tags: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
 };

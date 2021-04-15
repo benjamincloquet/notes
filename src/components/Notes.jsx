@@ -12,17 +12,23 @@ const Notes = () => {
   } = useNotes();
   const noteArray = Object.values(notes);
   const [selectedTag, setSelectedTag] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const renderNotes = () =>
-    noteArray.filter((note) => selectedTag === null || note.tags.includes(selectedTag)).map((note) => <Note key={note.id} note={note} />);
+  const matchTag = (note) => selectedTag === null || note.tags.includes(selectedTag);
+
+  const matchSearchTerm = (note) => note.name.toLowerCase().includes(searchTerm.toLowerCase());
+
+  const filterNote = (note) => matchTag(note) && matchSearchTerm(note);
+
+  const renderNotes = () => noteArray.filter(filterNote).map((note) => <Note key={note.id} note={note} />);
 
   return (
     <>
-      <header className="flex flex-col space-y-4">
-        <section className="flex justify-between items-center">
+      <header className="flex flex-col space-y-2">
+        <section className="flex justify-between items-center mb-2">
           <h1 className="text-5xl font-black">My Notes</h1>
         </section>
-        <SearchBar />
+        <SearchBar onChange={setSearchTerm} />
         <TagList tags={tags} onClick={(tag) => setSelectedTag((previousTag) => (tag === previousTag ? null : tag))} selectedTag={selectedTag} />
       </header>
       <Divider />
