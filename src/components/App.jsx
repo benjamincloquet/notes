@@ -1,16 +1,22 @@
 import React from 'react';
 import Notes from './Notes';
 import Overlay from './Overlay';
+import { useColorScheme } from '../contexts/color-scheme-context';
 
-const App = () => (
-  <>
-    <div className="h-screen w-screen">
-      <div className="container mx-auto h-full p-4 flex flex-col space-y-4 relative">
-        <Notes />
+const App = () => {
+  const { state: colorScheme } = useColorScheme();
+  const theme = 'bg-light dark:bg-dark transition-colors';
+
+  return (
+    <div className={colorScheme}>
+      <div className={`h-screen w-screen ${theme}`}>
+        <div className="container mx-auto h-full p-4 flex flex-col space-y-4 relative">
+          <Notes />
+        </div>
+        <Overlay />
       </div>
-      <Overlay />
     </div>
-  </>
-);
+  );
+};
 
 export default App;

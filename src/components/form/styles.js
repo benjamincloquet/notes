@@ -1,7 +1,7 @@
 export default [
   {
     id: 'white',
-    bg: 'white',
+    bg: 'white border',
     text: 'black',
   },
   {

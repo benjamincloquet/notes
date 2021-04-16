@@ -5,12 +5,15 @@ import 'tailwindcss/tailwind.css';
 import App from './components/App';
 import { OverlayContentProvider } from './contexts/overlay-context';
 import { NoteProvider } from './contexts/note-context';
+import { ColorSchemeProvider } from './contexts/color-scheme-context';
 
 ReactDOM.render(
-  <OverlayContentProvider>
-    <NoteProvider>
-      <App />
-    </NoteProvider>
-  </OverlayContentProvider>,
+  <ColorSchemeProvider>
+    <OverlayContentProvider>
+      <NoteProvider>
+        <App />
+      </NoteProvider>
+    </OverlayContentProvider>
+  </ColorSchemeProvider>,
   document.getElementById('root')
 );
