@@ -1,11 +1,13 @@
 import { createContext } from 'react';
-import makeContext from './context';
+import makeContext from './stored-context';
 
-const INITIAL_STATE = '';
+const DEFAULT_STATE = '';
 const ColorSchemeContext = createContext();
+ColorSchemeContext.displayName = 'ColorSchemeContext';
+const KEY = 'color-scheme';
 
 const colorSchemeReducer = (state) => (state === '' ? 'dark' : '');
 
-const { Provider: ColorSchemeProvider, useContext: useColorScheme } = makeContext(ColorSchemeContext, INITIAL_STATE, colorSchemeReducer);
+const { Provider: ColorSchemeProvider, useContext: useColorScheme } = makeContext(ColorSchemeContext, KEY, DEFAULT_STATE, colorSchemeReducer);
 
 export { ColorSchemeProvider, useColorScheme };

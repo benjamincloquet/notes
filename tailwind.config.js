@@ -13,8 +13,28 @@ module.exports = {
     },
     colors: {
       ...colors,
-      light: colors.white,
-      dark: colors.blueGray[800],
+      transparent: 'transparent',
+      current: 'currentColor',
+      light: {
+        primary: {
+          DEFAULT: colors.white,
+          accent: colors.blueGray[800],
+        },
+        secondary: {
+          DEFAULT: colors.blueGray[100],
+          accent: colors.blueGray[400],
+        },
+      },
+      dark: {
+        primary: {
+          DEFAULT: colors.blueGray[800],
+          accent: colors.blueGray[300],
+        },
+        secondary: {
+          DEFAULT: colors.blueGray[700],
+          accent: colors.blueGray[400],
+        },
+      },
     },
   },
   variants: {

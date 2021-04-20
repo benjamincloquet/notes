@@ -17,7 +17,7 @@ const Overlay = () => {
     <>
       <Dimmer visible={state.length > 0} />
       {transitions((props, { component: Component, key, props: componentProps }) => (
-        <animated.section key={key} style={props} className="w-screen h-screen fixed p-4 z-10 bottom-0">
+        <animated.section key={key} style={props} className="w-screen h-screen fixed p-4 z-10">
           <Component {...componentProps} />
         </animated.section>
       ))}

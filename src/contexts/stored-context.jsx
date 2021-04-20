@@ -1,12 +1,22 @@
 import makeContext from './context';
 
-export default (Context, defaultState, reducer) => {
-  const getStoredOrDefaultValue = (key) => {
+export default (Context, key, defaultState, reducer) => {
+  const getStoredOrDefaultValue = () => {
     const value = window.localStorage.getItem(key);
-    return value ? JSON.parse(value) : defaultState[key];
+    return value ? JSON.parse(value) : defaultState;
   };
 
-  const initialState = Object.keys(defaultState).reduce((acc, key) => ({ ...acc, [key]: getStoredOrDefaultValue(key) }), defaultState);
+  const initialState = getStoredOrDefaultValue();
 
-  return makeContext(Context, initialState, reducer);
+  const storeState = (state) => {
+    window.localStorage.setItem(key, JSON.stringify(state));
+  };
+
+  const reducerWithStorage = (state, action) => {
+    const newState = reducer(state, action);
+    storeState(newState);
+    return newState;
+  };
+
+  return makeContext(Context, initialState, reducerWithStorage);
 };

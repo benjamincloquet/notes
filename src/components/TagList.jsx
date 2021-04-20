@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TagList = ({ tags, onClick, selectedTag }) => (
-  <div className="flex flex-row flex-wrap">
+  <div className="flex flex-row flex-wrap space-x-2">
     {tags.map((tag) => {
       const Component = onClick ? 'button' : 'div';
       return (
         <Component
           type="button"
           key={tag}
-          className={`rounded-full bg-yellow-200 text-black py-1 px-2 mx-1 my-1 justify-self-start font-mono shadow ${
-            selectedTag === tag ? 'border-2 border-black' : null
+          className={`rounded-full px-2 py-1 bg-yellow-200 text-black justify-self-start font-mono shadow ${
+            selectedTag === tag ? 'ring-2 ring-blue-400 font-black focus:ring-amber-400' : null
           }`}
           onClick={() => onClick && onClick(tag)}
         >

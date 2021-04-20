@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Divider = ({ style }) => <div className={`w-100 border ${style}`} />;
+const Divider = ({ className }) => (
+  <div className={`w-100 border border-light-primary-accent border-opacity-30 dark:border-dark-secondary transition-colors ${className}`} />
+);
 
 Divider.propTypes = {
-  style: PropTypes.string,
+  className: PropTypes.string,
 };
 
 Divider.defaultProps = {
-  style: '',
+  className: '',
 };
 
 export default Divider;

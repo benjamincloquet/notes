@@ -6,6 +6,7 @@ import App from './components/App';
 import { OverlayContentProvider } from './contexts/overlay-context';
 import { NoteProvider } from './contexts/note-context';
 import { ColorSchemeProvider } from './contexts/color-scheme-context';
+import './index.css';
 
 ReactDOM.render(
   <ColorSchemeProvider>

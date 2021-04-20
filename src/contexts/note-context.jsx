@@ -3,51 +3,14 @@ import makeContext from './stored-context';
 
 const DEFAULT_STATE = { notes: {}, tags: [] };
 const NoteContext = createContext();
+NoteContext.displayName = 'NoteContext';
+const KEY = 'notes';
 
-const storeState = (state) => {
-  window.localStorage.setItem('notes', JSON.stringify(state.notes));
-  window.localStorage.setItem('tags', JSON.stringify(state.tags));
-};
-
-const addUniqueNoteTags = (tags, note) =>
-  note.tags.reduce((acc, tag) => {
-    if (acc.includes(tag)) {
-      return acc;
-    }
-    return [...acc, tag];
-  }, tags);
-
-const writeNote = (state, note) => {
-  const tags = addUniqueNoteTags(state.tags, note);
-  const newState = { ...state, tags, notes: { ...state.notes, [note.id]: { ...note } } };
-  storeState(newState);
-  return newState;
-};
-
-const removeUniqueNoteTags = (state, note) => {
-  const tagsToRemove = note.tags;
-  Object.entries(state.notes).forEach(([id, { tags }]) => {
-    if (id !== note.id) {
-      tagsToRemove.forEach((tag) => {
-        if (tags.includes(tag)) {
-          const tagIndex = tagsToRemove.indexOf(tag);
-          tagsToRemove.splice(tagIndex, 1);
-        }
-      });
-    }
-  });
-  return state.tags.reduce((acc, tag) => {
-    if (!tagsToRemove.includes(tag)) {
-      return [...acc, tag];
-    }
-    return acc;
-  }, []);
-};
+const writeNote = (state, note) => ({ ...state, notes: { ...state.notes, [note.id]: note } });
 
 const deleteNote = (state, note) => {
-  const newState = { ...state, tags: removeUniqueNoteTags(state, note) };
+  const newState = { ...state };
   delete newState.notes[note.id];
-  storeState(newState);
   return newState;
 };
 
@@ -65,6 +28,50 @@ const noteReducer = (state, action) => {
   }
 };
 
-const { Provider: NoteProvider, useContext: useNotes } = makeContext(NoteContext, DEFAULT_STATE, noteReducer);
+const addUniqueTags = (state, note) =>
+  note.tags.reduce((acc, tag) => {
+    if (acc.includes(tag)) {
+      return acc;
+    }
+    return [...acc, tag];
+  }, state.tags);
+
+const deleteUniqueTags = (state, note) => {
+  const tagsToDelete = note.tags;
+  Object.entries(state.notes).forEach(([id, { tags }]) => {
+    if (id !== note.id) {
+      tagsToDelete.forEach((tag) => {
+        if (tags.includes(tag)) {
+          const tagIndex = tagsToDelete.indexOf(tag);
+          tagsToDelete.splice(tagIndex, 1);
+        }
+      });
+    }
+  });
+  return state.tags.reduce((acc, tag) => {
+    if (!tagsToDelete.includes(tag)) {
+      return [...acc, tag];
+    }
+    return acc;
+  }, []);
+};
+
+const tagReducer = (state, action) => {
+  switch (action.type) {
+    case 'write': {
+      return { ...state, tags: addUniqueTags(state, action.payload) };
+    }
+    case 'delete': {
+      return { ...state, tags: deleteUniqueTags(state, action.payload) };
+    }
+    default: {
+      throw new Error(`Unhandled action type: ${action.type}`);
+    }
+  }
+};
+
+const reducer = (state, action) => tagReducer(noteReducer(state, action), action);
+
+const { Provider: NoteProvider, useContext: useNotes } = makeContext(NoteContext, KEY, DEFAULT_STATE, reducer);
 
 export { NoteProvider, useNotes };

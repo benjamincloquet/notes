@@ -17,9 +17,7 @@ import styles from './styles';
 const DEFAULT_NOTE = { name: 'New Note', text: '', tags: [], style: styles[0] ?? {} };
 
 const NoteForm = ({ note: openedNote }) => {
-  const generateNote = () => ({ ...DEFAULT_NOTE, id: uuidv4() });
-  const initialState = openedNote ?? generateNote();
-  const [note, setNote] = useState(initialState);
+  const [note, setNote] = useState(openedNote ?? { ...DEFAULT_NOTE, id: uuidv4() });
 
   const setProperty = (property, value) => {
     setNote((previousNote) => ({ ...previousNote, [property]: value }));
@@ -28,7 +26,7 @@ const NoteForm = ({ note: openedNote }) => {
   const { dispatch: dispatchNote } = useNotes();
   const { dispatch: dispatchOverlay } = useOverlayContent();
 
-  const onSubmit = (event) => {
+  const onSave = (event) => {
     event.preventDefault();
     dispatchNote({ type: 'write', payload: note });
     dispatchOverlay({ type: 'hide', payload: { component: NoteForm } });
@@ -40,28 +38,30 @@ const NoteForm = ({ note: openedNote }) => {
   };
 
   return (
-    <form className={`flex flex-col space-y-2 h-full rounded-lg transition-colors bg-${note.style.bg} text-${note.style.text}`} onSubmit={onSubmit}>
+    <form className={`flex flex-col space-y-2 h-full rounded-lg transition-colors ${note.style.form}`} onSubmit={onSave}>
       <section className="flex-grow p-4 flex flex-col space-y-2">
         <TextInput
           value={note.name}
-          defaultValue={initialState.name}
+          defaultValue={DEFAULT_NOTE.name}
           setValue={(value) => setProperty('name', value)}
-          className={`text-5xl font-black w-full bg-transparent placeholder-${note.style.text} placeholder-opacity-60`}
+          className={`text-5xl font-black w-full ${note.style.input}`}
+          placeholder="Note name"
         />
         <ListTextInput
           value={note.tags}
-          defaultValue={initialState.tags}
+          defaultValue={DEFAULT_NOTE.tags}
           setValue={(value) => setProperty('tags', value)}
-          className={`text-lg font-medium w-full bg-transparent placeholder-${note.style.text} placeholder-opacity-60`}
+          className={`text-lg font-medium w-full ${note.style.input}`}
+          placeholder="Add a tag..."
         />
         <TagList tags={note.tags} />
-        <Divider style={`border-${note.style.text} border-opacity-40`} />
+        <Divider />
         <textarea
           name="content"
           id="content"
           value={note.text}
           placeholder="Tap to start typing !"
-          className={`resize-none p-2 w-full flex-grow bg-transparent font-medium placeholder-${note.style.text} placeholder-opacity-60`}
+          className={`resize-none p-2 w-full flex-grow font-medium ${note.style.input}`}
           onChange={(event) => setProperty('text', event.target.value)}
         />
       </section>
@@ -73,7 +73,7 @@ const NoteForm = ({ note: openedNote }) => {
           className="flex flex-row justify-around w-full py-4"
         />
         <div className="flex flex-row justify-between">
-          <Button className="bg-gray-400 left-8" onClick={() => dispatchOverlay({ type: 'hide', payload: { component: NoteForm } })}>
+          <Button className="bg-light-secondary-accent left-8" onClick={() => dispatchOverlay({ type: 'hide', payload: { component: NoteForm } })}>
             <CancelIcon className="h-10 w-10 text-white mx-auto" width={2} />
           </Button>
           {openedNote ? (
@@ -96,7 +96,7 @@ NoteForm.propTypes = {
     name: PropTypes.string,
     text: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string),
-    style: PropTypes.shape({ bg: PropTypes.string, text: PropTypes.string }),
+    style: PropTypes.shape({ form: PropTypes.string, input: PropTypes.string }),
   }),
 };
 

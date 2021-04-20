@@ -2,8 +2,9 @@ import { createContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import makeContext from './context';
 
-const INITIAL_STATE = [];
+const DEFAULT_STATE = [];
 const OverlayContentContext = createContext();
+OverlayContentContext.displayName = 'OverlayContentContext';
 
 const overlayContentReducer = (state, action) => {
   switch (action.type) {
@@ -21,6 +22,6 @@ const overlayContentReducer = (state, action) => {
   }
 };
 
-const { Provider: OverlayContentProvider, useContext: useOverlayContent } = makeContext(OverlayContentContext, INITIAL_STATE, overlayContentReducer);
+const { Provider: OverlayContentProvider, useContext: useOverlayContent } = makeContext(OverlayContentContext, DEFAULT_STATE, overlayContentReducer);
 
 export { OverlayContentProvider, useOverlayContent };

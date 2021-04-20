@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const ListTextInput = ({ value, setValue, className }) => {
+const ListTextInput = ({ value, setValue, className, placeholder }) => {
   const [itemInput, setItemInput] = useState('');
 
   const onKeyDown = (event) => {
@@ -21,7 +21,7 @@ const ListTextInput = ({ value, setValue, className }) => {
       type="text"
       className={className}
       value={itemInput}
-      placeholder="Add a tag..."
+      placeholder={placeholder}
       onChange={(event) => setItemInput(event.target.value)}
       onKeyDown={onKeyDown}
     />
@@ -32,11 +32,13 @@ ListTextInput.propTypes = {
   value: PropTypes.arrayOf(PropTypes.string).isRequired,
   setValue: PropTypes.func,
   className: PropTypes.string,
+  placeholder: PropTypes.string,
 };
 
 ListTextInput.defaultProps = {
   setValue: null,
   className: '',
+  placeholder: '',
 };
 
 export default ListTextInput;
