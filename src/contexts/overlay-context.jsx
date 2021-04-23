@@ -22,6 +22,10 @@ const overlayContentReducer = (state, action) => {
   }
 };
 
-const { Provider: OverlayContentProvider, useContext: useOverlayContent } = makeContext(OverlayContentContext, DEFAULT_STATE, overlayContentReducer);
+const { Provider: OverlayContentProvider, useContext: useOverlayContent } = makeContext({
+  context: OverlayContentContext,
+  defaultState: DEFAULT_STATE,
+  reducer: overlayContentReducer,
+});
 
 export { OverlayContentProvider, useOverlayContent };

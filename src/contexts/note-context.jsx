@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import makeContext from './stored-context';
+import makeContext from './context';
 
 const DEFAULT_STATE = { notes: {}, tags: [] };
 const NoteContext = createContext();
@@ -72,6 +72,6 @@ const tagReducer = (state, action) => {
 
 const reducer = (state, action) => tagReducer(noteReducer(state, action), action);
 
-const { Provider: NoteProvider, useContext: useNotes } = makeContext(NoteContext, KEY, DEFAULT_STATE, reducer);
+const { Provider: NoteProvider, useContext: useNotes } = makeContext({ context: NoteContext, key: KEY, defaultState: DEFAULT_STATE, reducer });
 
 export { NoteProvider, useNotes };

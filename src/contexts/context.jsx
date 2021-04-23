@@ -1,9 +1,9 @@
 import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
 
-export default (Context, initialState, reducer) => {
+export default ({ context: Context, defaultState, reducer }) => {
   const Provider = ({ children }) => {
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useReducer(reducer, defaultState);
     const value = { state, dispatch };
     return <Context.Provider value={value}>{children}</Context.Provider>;
   };
