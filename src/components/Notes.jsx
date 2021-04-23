@@ -32,7 +32,7 @@ const Notes = () => {
       <SearchBar onChange={setSearchTerm} />
       {renderTags()}
       <Divider />
-      <main className="flex-grow flex flex-col items-center space-y-4 overflow-y-auto p-1">
+      <main className="flex-grow flex flex-col items-center content-start space-y-4 md:space-y-0 md:grid md:grid-cols-2 md:gap-4 lg:gap-8 overflow-y-auto p-1">
         {noteArray.length > 0 ? (
           renderNotes()
         ) : (
