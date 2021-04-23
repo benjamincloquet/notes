@@ -10,7 +10,7 @@ const App = () => {
 
   return (
     <div className={colorScheme}>
-      <div className={`h-screen w-screen ${theme}`}>
+      <div className={`h-screen w-screen ${theme} relative`}>
         <div className="container max-w-screen-lg mx-auto h-full p-4 flex flex-col space-y-4 relative">
           <Header />
           <Notes />
