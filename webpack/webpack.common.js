@@ -1,9 +1,10 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { entry, template } = require('./paths');
+const { entry, output, template } = require('./paths');
 
 module.exports = {
   entry,
+  output: { path: output },
   resolve: {
     extensions: ['.js', '.jsx'],
   },
