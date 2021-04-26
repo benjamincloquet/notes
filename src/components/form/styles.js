@@ -12,17 +12,23 @@ const getDefaultTheme = () => {
   };
 };
 
-const getColorTheme = (color) => {
-  const light = `bg-${color} text-light-primary-accent transition-colors`;
-  const dark = `dark:bg-dark-primary dark:text-${color} transition-colors`;
+const getColorTheme = (bg, text, border) => {
+  const light = `${bg} text-light-primary-accent transition-colors`;
+  const dark = `dark:bg-dark-primary ${text} transition-colors`;
   const base = `${light} ${dark}`;
   return {
-    id: color,
-    note: `${base} border-2 border-transparent dark:border-${color}`,
+    id: `${bg}${text}`,
+    note: `${base} border-2 border-transparent ${border}`,
     form: base,
     input: placeholder,
     button: light,
   };
 };
 
-export default [getDefaultTheme(), getColorTheme('red-400'), getColorTheme('amber-200'), getColorTheme('green-300'), getColorTheme('lightBlue-300')];
+export default [
+  getDefaultTheme(),
+  getColorTheme('bg-red-400', 'dark:text-red-400', 'dark:border-red-400'),
+  getColorTheme('bg-amber-200', 'dark:text-amber-200', 'dark:border-amber-200'),
+  getColorTheme('bg-green-300', 'dark:text-green-300', 'dark:border-green-300'),
+  getColorTheme('bg-lightBlue-300', 'dark:text-lightBlue-300', 'dark:border-lightBlue-300'),
+];
