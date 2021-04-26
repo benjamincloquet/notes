@@ -1,6 +1,13 @@
-# Hedy Lamarr front-end \#castelhackathon
+![banner](https://github.com/benjamincloquet/notes/blob/main/notes.png)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+The aim of the app is to make use of Next.js and TailwindCSS together with very simplistic premises: making a note taking app.
+I voluntarily chose to not make the notes persistent, so as to focus on the implementation of the interface with TailwindCSS and react-spring without bothering with backend features.
+The primary features I worked on and implemented are:
+- **Mobile first design and responsive layout for desktop**
+- **Overlays and transitions**
+- **Dark mode and component themes**
+- **Accessibility (color contrast and keyboard navigation)**
 
 ## Prerequisites
 
